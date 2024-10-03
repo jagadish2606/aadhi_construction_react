@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
-import { TextField, Button, Container, Typography, Snackbar, Alert } from '@mui/material';
+import { TextField, Button, Container, Typography, Snackbar, Alert, Box } from '@mui/material';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
     const [formData, setFormData] = useState({
-        username: '',
+        firstname: '',
+        lastname: '',
         email: '',
         password: '',
     });
+    const navigate = useNavigate();
 
     const [snackbar, setSnackbar] = useState({
         open: false,
@@ -26,23 +29,33 @@ const SignUp = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('https://your-api-endpoint.com/signup', formData);
+            const response = await axios.post('//127.0.0.1:8000/users/add', formData);
             console.log(response.data);
             setSnackbar({
                 open: true,
-                message: 'Sign up successful!',
+                message: 'User added successfully!',
                 severity: 'success',
             });
-            // Handle successful signup (e.g., navigate to login or dashboard)
+            navigate('/');
+            setFormData();
         } catch (error) {
-            console.error('Error signing up:', error);
+            console.error('Error adding user:', error);
             setSnackbar({
                 open: true,
-                message: 'Error signing up. Please try again.',
+                message: 'Error adding user. Please try again.',
                 severity: 'error',
             });
-            // Handle error (e.g., display error message)
         }
+    };
+
+    const handleCancel = () => {
+        setFormData({
+            firstname: '',
+            lastname: '',
+            email: '',
+            password: '',
+        });
+        navigate('/');
     };
 
     const handleCloseSnackbar = () => {
@@ -50,54 +63,79 @@ const SignUp = () => {
     };
 
     return (
-        <Container component="main" maxWidth="xs">
-            <Typography variant="h5">Sign Up</Typography>
-            <form onSubmit={handleSubmit} noValidate>
-                <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    label="Username"
-                    name="username"
-                    value={formData.username}
-                    onChange={handleChange}
-                />
-                <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    label="Email"
-                    name="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                />
-                <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    label="Password"
-                    name="password"
-                    type="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                />
-                <Button type="submit" fullWidth variant="contained" color="primary">
-                    Sign Up
-                </Button>
-            </form>
+        <div className="background">
+            <Container component="main" maxWidth="xs" className="centered-form">
+                <Typography variant="h5" gutterBottom>Sign Up</Typography>
+                <form onSubmit={handleSubmit} noValidate>
+                    <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        label="First Name"
+                        name="firstname"
+                        value={formData.firstname}
+                        onChange={handleChange}
+                    />
+                    <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        label="Last Name"
+                        name="lastname"
+                        value={formData.lastname}
+                        onChange={handleChange}
+                    />
+                    <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        label="Email"
+                        name="email"
+                        type="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                    />
+                    <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        label="Password"
+                        name="password"
+                        type="password"
+                        value={formData.password}
+                        onChange={handleChange}
+                    />
+                    
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
+                        <Button
+                            variant="outlined"
+                            color="secondary"
+                            onClick={handleCancel}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            color="primary"
+                        >
+                            Save
+                        </Button>
+                    </Box>
+                </form>
 
-            <Snackbar
-                open={snackbar.open}
-                autoHideDuration={6000}
-                onClose={handleCloseSnackbar}
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-            >
-                <Alert onClose={handleCloseSnackbar} severity={snackbar.severity} sx={{ width: '100%' }}>
-                    {snackbar.message}
-                </Alert>
-            </Snackbar>
-        </Container>
+                <Snackbar
+                    open={snackbar.open}
+                    autoHideDuration={6000}
+                    onClose={handleCloseSnackbar}
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+                >
+                    <Alert onClose={handleCloseSnackbar} severity={snackbar.severity} sx={{ width: '100%' }}>
+                        {snackbar.message}
+                    </Alert>
+                </Snackbar>
+            </Container>
+        </div>
     );
 };
 

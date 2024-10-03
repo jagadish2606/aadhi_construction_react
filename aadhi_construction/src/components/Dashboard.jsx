@@ -17,7 +17,7 @@ const Dashboard = () => {
     const [expanded, setExpanded] = useState(false);
     const [expandedCrm, setExpandedCrm] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState(0);
-    const navigate = useNavigate();
+    
     const drawerRef = useRef(null);
 
     const toggleDrawer = () => {
@@ -107,7 +107,7 @@ const Dashboard = () => {
                     {expanded && (
                         <List component="div" disablePadding>
                             <ListItem button selected={selectedIndex === 2}  onClick={() => handleListItemClick(2, '/')}>
-                                <ListItemText primary="Users" inset />
+                                <ListItemText primary="Roles" inset />
                             </ListItem>
                             <ListItem button selected={selectedIndex === 3} onClick={() => handleListItemClick(3, '/settings/notifications')}>
                                 <ListItemText primary="Employee" inset />

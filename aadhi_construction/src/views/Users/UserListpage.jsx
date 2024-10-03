@@ -13,7 +13,7 @@
 //   id: 'userid' | 'firstname' | 'lastname' | 'email'; // Update column IDs
 //   label: string;
 //   minWidth?: number;
-//   align?: 'right';
+//   align?: 'right';   
 // }
 
 // const columns: readonly Column[] = [

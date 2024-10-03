@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { TextField, Button, Snackbar, Alert } from '@mui/material';
 import axios from 'axios';
 import constructionImage from '../assets/construction-silhouette.jpg';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const SignIn = () => {
     const [formData, setFormData] = useState({ username: '', password: '' });
@@ -56,7 +56,7 @@ const SignIn = () => {
                 </p>
                 <form onSubmit={handleSubmit} noValidate>
                     <TextField
-                        className="mb-4 w-full"
+                        className="mb-4 w-full me-2"
                         required
                         label="Email"
                         name="username" 
@@ -67,7 +67,7 @@ const SignIn = () => {
                         fullWidth
                     />
                     <TextField
-                        className="mb-4 w-full"
+                        className="mb-4 w-full me-2"
                         required
                         label="Password"
                         name="password"
@@ -80,6 +80,14 @@ const SignIn = () => {
                     <Button type="submit" fullWidth variant="contained" color="primary" className="bg-blue-600 hover:bg-blue-700">
                         Sign In
                     </Button>
+                    
+                    <div className="me-2 space-x-0">
+                        <p>
+                            <Link to="/signup" className="text-blue-500 hover:underline">Sign up?</Link>
+                        </p>
+                    </div>
+
+                    
                 </form>
 
                 <Snackbar

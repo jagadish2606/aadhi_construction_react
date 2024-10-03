@@ -18,6 +18,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 import Dashboard from './components/Dashboard';
+import EmployeeListpage from './views/Users/EmployeeListpage';
 // import UsersListPage from './views/Users/UserListpage';
 
 const App = () => {
@@ -27,7 +28,7 @@ const App = () => {
                 <Route path="/SignUp" element={<SignUp />} />
                 <Route path="/" element={<SignIn />} />
                 <Route path="/dashboard" element={<Dashboard />} />
-                {/* <Route path="/UserList" element={<UsersListPage />} /> */}
+                <Route path="/EmployeeList" element={<EmployeeListpage />} />
             </Routes>
         </Router>
     );

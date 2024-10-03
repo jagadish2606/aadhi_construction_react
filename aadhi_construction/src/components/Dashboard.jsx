@@ -1,6 +1,8 @@
 import React, { useRef, useEffect } from 'react';
-import { AppBar, Toolbar, IconButton, Typography, CssBaseline, Drawer, 
-            List, ListItem, ListItemIcon, ListItemText, Divider } from '@mui/material';
+import {
+    AppBar, Toolbar, IconButton, Typography, CssBaseline, Drawer,
+    List, ListItem, ListItemIcon, ListItemText, Divider, Box
+} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import AccountCircle from '@mui/icons-material/AccountCircle';
@@ -17,7 +19,7 @@ const Dashboard = () => {
     const [expanded, setExpanded] = useState(false);
     const [expandedCrm, setExpandedCrm] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState(0);
-    
+    const navigate = useNavigate();
     const drawerRef = useRef(null);
 
     const toggleDrawer = () => {
@@ -33,15 +35,16 @@ const Dashboard = () => {
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
-    function handleExpandCrm(){
+
+    const handleExpandCrm = () => {
         setExpandedCrm(!expandedCrm);
     };
 
     const handleClickOutside = (event) => {
         if (drawerRef.current && !drawerRef.current.contains(event.target)) {
             setOpen(false); // Close the drawer
-            setExpanded(false); 
-            setExpandedCrm(false);// Close the expandable menu
+            setExpanded(false);
+            setExpandedCrm(false); // Close the expandable menu
         }
     };
 
@@ -56,9 +59,9 @@ const Dashboard = () => {
     const drawerWidth = 240;
 
     return (
-        <div style={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex', height: '100vh' }}>
             <CssBaseline />
-            <AppBar position="fixed">
+            <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
                 <Toolbar>
                     <IconButton edge="start" color="inherit" onClick={toggleDrawer}>
                         <MenuIcon />
@@ -72,7 +75,7 @@ const Dashboard = () => {
                 variant="persistent"
                 anchor="left"
                 open={open}
-                ref={drawerRef} // Attach ref to the drawer
+                ref={drawerRef}
                 sx={{
                     width: drawerWidth,
                     flexShrink: 0,
@@ -106,10 +109,10 @@ const Dashboard = () => {
                     </ListItem>
                     {expanded && (
                         <List component="div" disablePadding>
-                            <ListItem button selected={selectedIndex === 2}  onClick={() => handleListItemClick(2, '/')}>
+                            <ListItem button selected={selectedIndex === 2} onClick={() => handleListItemClick(2, '/')}>
                                 <ListItemText primary="Roles" inset />
                             </ListItem>
-                            <ListItem button selected={selectedIndex === 3} onClick={() => handleListItemClick(3, '/settings/notifications')}>
+                            <ListItem button selected={selectedIndex === 3} onClick={() => handleListItemClick(3, '/EmployeeList')}>
                                 <ListItemText primary="Employee" inset />
                             </ListItem>
                         </List>
@@ -123,16 +126,16 @@ const Dashboard = () => {
                     </ListItem>
                     {expandedCrm && (
                         <List component="div" disablePadding>
-                            <ListItem 
-                                button 
-                                selected={selectedIndex === 4} 
+                            <ListItem
+                                button
+                                selected={selectedIndex === 4}
                                 onClick={() => handleListItemClick(4, '/settings/general')}
                             >
                                 <ListItemText primary="Customers" inset />
                             </ListItem>
-                            <ListItem 
-                                button 
-                                selected={selectedIndex === 5} 
+                            <ListItem
+                                button
+                                selected={selectedIndex === 5}
                                 onClick={() => handleListItemClick(5, '/settings/notifications')}
                             >
                                 <ListItemText primary="Vendors" inset />
@@ -142,7 +145,16 @@ const Dashboard = () => {
                 </List>
                 <Divider />
             </Drawer>
-            <main style={{ flexGrow: 1, padding: '16px', marginLeft: open ? drawerWidth : 0, transition: 'margin 0.3s' }}>
+            <Box
+                component="main"
+                sx={{
+                    flexGrow: 1,
+                    p: 3,
+                    marginLeft: open ? `${drawerWidth}px` : '0',
+                    transition: 'margin 0.3s',
+                    width: open ? `calc(100% - ${drawerWidth}px)` : '100%',
+                }}
+            >
                 <Toolbar />
                 <Typography variant="h4" gutterBottom>
                     Welcome to Your Dashboard
@@ -150,9 +162,8 @@ const Dashboard = () => {
                 <Typography variant="body1">
                     Here you can manage your application settings and view your profile.
                 </Typography>
-                {/* Add more content here */}
-            </main>
-        </div>
+            </Box>
+        </Box>
     );
 };
 

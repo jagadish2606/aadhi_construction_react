@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TablePagination, Typography } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TablePagination, Typography, IconButton } from '@mui/material';
+import { Link } from 'react-router-dom';
+import QueueIcon from '@mui/icons-material/Queue';
 import axios from 'axios';
+import EmployeeAddpage from './EmployeeAddpage';
 
-const EmployeeListpage = () => {
+const EmployeeListPage = () => {
     const [employees, setEmployees] = useState([]);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [totalCount, setTotalCount] = useState(0);
+    const [openModal, setOpenModal] = useState(false);
+    
 
     const fetchEmployees = async (page, rowsPerPage) => {
         try {
             const response = await axios.get(`http://127.0.0.1:8000/Employee/list?page=${page + 1}&per_page=${rowsPerPage}`);
-            setEmployees(response.data.items);  // Assuming API returns { items: [...] } format
-            setTotalCount(response.data.total); // Assuming API returns { total: ... } for total count
+            setEmployees(response.data.items);
+            setTotalCount(response.data.total);
         } catch (error) {
             console.error('Error fetching employees:', error);
         }
@@ -30,6 +35,15 @@ const EmployeeListpage = () => {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
+    
+      
+        const handleOpen = () => {
+            setOpenModal(true);
+        };
+    
+        const handleClose = () => {
+            setOpenModal(false);
+        };
 
     return (
         <div style={{ height: '100vh', width: '100vw', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', padding: '20px', boxSizing: 'border-box' }}>
@@ -37,6 +51,19 @@ const EmployeeListpage = () => {
                 <Typography variant="h5" align="left" gutterBottom>
                     Employee List
                 </Typography>
+                
+                        <Link 
+                           
+                           
+                            className="absolute top-0 right-0 m-4"
+                        >
+                           
+                            <IconButton color="primary" aria-label="add employee">
+                                <QueueIcon onClick={handleOpen} />
+                                <EmployeeAddpage open={openModal} handleClose={handleClose} />
+                            </IconButton>
+                        </Link>
+                    
                 <TableContainer style={{ flexGrow: 1, overflowY: 'auto' }}>
                     <Table stickyHeader>
                         <TableHead>
@@ -76,4 +103,4 @@ const EmployeeListpage = () => {
     );
 };
 
-export default EmployeeListpage;
+export default EmployeeListPage;

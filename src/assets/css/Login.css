@@ -1,0 +1,11 @@
+.bg_img {
+    background-image: url(../images/login-page-bg.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+.form-wrapper {
+    background: transparent;
+    -webkit-filter: blur(1px);
+    filter: blur(1px);
+}

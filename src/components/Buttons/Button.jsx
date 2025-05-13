@@ -1,29 +1,40 @@
 import React from 'react';
 
-const Button = ({ label, color, id, action, isDisable, icon, loading, size, fullWidth, variant, tooltip
+const Button = ({ label, color, id, action, isDisable, icon, loading, size,width, fullWidth, tooltip
 }) => {
-    const getColorClass = () => {
-        const base = {
-            primary: 'blue',
-            danger: 'red',
-            success: 'green',
-            secondary: 'gray'
-        }[color] || 'blue';
+    // const getColorClass = () => {
+    //     const base = {
+    //         primary: 'blue',
+    //         danger: 'red',
+    //         success: 'green',
+    //         secondary: 'gray'
+    //     }[color] || 'blue';
 
-        const solid = `bg-${base}-500 text-white hover:bg-${base}-600`;
-        const outline = `border border-${base}-500 text-${base}-500 hover:bg-${base}-50`;
-        const ghost = `text-${base}-500 hover:bg-${base}-100`;
+    //     const solid = `bg-${base}-500 text-white hover:bg-${base}-600`;
+    //     const outline = `border border-${base}-500 text-${base}-500 hover:bg-${base}-50`;
+    //     const ghost = `text-${base}-500 hover:bg-${base}-100`;
 
-        switch (variant) {
-            case 'outline':
-                return outline;
-            case 'ghost':
-                return ghost;
-            case 'solid':
-            default:
-                return solid;
+    //     switch (variant) {
+    //         case 'outline':
+    //             return outline;
+    //         case 'ghost':
+    //             return ghost;
+    //         case 'solid':
+    //         default:
+    //             return solid;
+    //     }
+    // };
+
+    const getColorClass = () =>{
+        switch(color){
+            case 'primary':
+                return 'text-white bg-blue-500';
+            case 'danger':
+                return 'text-white bg-red-500';
+            case 'success':
+                return 'text-white bg-green-500';
         }
-    };
+    }
 
     const getSizeClass = () => {
         switch (size) {
@@ -43,7 +54,7 @@ const Button = ({ label, color, id, action, isDisable, icon, loading, size, full
             onClick={action}
             disabled={isDisable || loading}
             title={tooltip}
-            className={`flex items-center justify-center gap-2 rounded transition duration-15 
+            className={`flex items-center justify-center gap-2 rounded transition duration-15 ${width}
                 ${getColorClass()} 
                 ${getSizeClass()} 
                 ${fullWidth ? 'w-full' : ''} 

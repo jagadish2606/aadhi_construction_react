@@ -2,28 +2,6 @@ import React from 'react';
 
 const Button = ({ label, color, id, action, isDisable, icon, loading, size,width, fullWidth, tooltip
 }) => {
-    // const getColorClass = () => {
-    //     const base = {
-    //         primary: 'blue',
-    //         danger: 'red',
-    //         success: 'green',
-    //         secondary: 'gray'
-    //     }[color] || 'blue';
-
-    //     const solid = `bg-${base}-500 text-white hover:bg-${base}-600`;
-    //     const outline = `border border-${base}-500 text-${base}-500 hover:bg-${base}-50`;
-    //     const ghost = `text-${base}-500 hover:bg-${base}-100`;
-
-    //     switch (variant) {
-    //         case 'outline':
-    //             return outline;
-    //         case 'ghost':
-    //             return ghost;
-    //         case 'solid':
-    //         default:
-    //             return solid;
-    //     }
-    // };
 
     const getColorClass = () =>{
         switch(color){

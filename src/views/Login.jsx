@@ -16,7 +16,7 @@ const Login = () => {
         <>
             <form className='w-full h-screen flex items-center justify-center bg_img'>
 
-                <div className='relative flex flex-col items-center justify-between shadow-md rounded w-[50%] h-[50%] border bg-white border-amber-50 p-5'>
+                <div className='relative flex flex-col items-center justify-between shadow-sm rounded w-[50%] h-[50%] border bg-white border-amber-50 p-5'>
 
                     <div className='grid grid-cols-2 w-full gap-5'>
                         <div className='flex flex-col items-center'>
@@ -38,7 +38,7 @@ const Login = () => {
                             <span onClick={() => setIsViewable(isViewable = !isViewable)} className='absolute right-[1rem] top-[1.1rem] cursor-pointer'>{isViewable ? closeFace : openFace}</span>
                         </div>
 
-                        <div className='col-span-2 flex items-center justify-center'>
+                        <div className='col-span-2 flex items-center justify-center gap-3'>
                             <Button label="Login"
                                 color={"primary"}
                                 id="button"
@@ -48,6 +48,7 @@ const Login = () => {
                                 isDisable={false}
                                 loading={false}
                                 size={'sm'}
+                                width={'w-[5rem]'}
                                 action={handleLogin} />
                             <Button label="Download"
                                 color={"success"}
@@ -58,6 +59,7 @@ const Login = () => {
                                 isDisable={false}
                                 loading={false}
                                 size={'sm'}
+                                width={'w-[5rem]'}
                                 action={() => alert('Downloading...')} />
                         </div>
                     </div>
